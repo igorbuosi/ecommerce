@@ -1,16 +1,18 @@
 <?php 
 
 require_once("vendor/autoload.php");
+use \Slim\Slim;
+use \Hcode\Page;
 
-$app = new \Slim\Slim();
+$app = new Slim();
 
 $app->config('debug', true);
 
-$app->get('/', function() {
+$app->get('/', function() { //definindo a rota padrao / -> sem chamar nada
     
-	$sql = new Hcode\DB\Sql();
-	$results = $sql->select("select * from tb_users");
-	echo json_encode($results);
+	$page = new Page(); // instanciou o construct
+	$page->setTpl("index");
+	//destrutor é automatico
 
 });
 
