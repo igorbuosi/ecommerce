@@ -11,6 +11,22 @@ class Product extends Model{
         return $sql->select("select * from tb_products order by desproduct");
     }
 
+    public static function checkList($list){
+
+        foreach ($list as &$row){
+            $p = new Product();
+            $p->setData($row);
+            $row = $p->getValues();
+
+        }
+
+        return $list;
+
+
+    }
+
+   
+
     public function save(){
         $sql = new Sql();
         $results = $sql->select("CALL sp_products_save(:idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, :vllength, :vlweight ,:desurl)", array(
@@ -60,34 +76,40 @@ class Product extends Model{
     public function getValues(){
         $this->checkPhoto();
         $values = parent::getValues();
-        
-
         return $values;
-
     }
 
     public function setPhoto($file){
         $extension = explode('.',$file['name']);
         $extension = end($extension);
 
+        //var_dump($extension);
+        //exit;
+
         switch($extension){
             case "jpg":
-            case "jpeg":
                 $image = imagecreatefromjpeg($file["tmp_name"]);
             break;
-                $image = imagecreatefromgif($file["tmp_name"]);
+            case "jpeg":
+                $image = imagecreatefromjpeg($file["tmp_name"]);
+            break;                
             case "gif":
-            break;
-                $image = imagecreatefrompng($file["tmp_name"]);
+                $image = imagecreatefromgif($file["tmp_name"]);
+            break; 
             case "png":
+                $image = imagecreatefrompng($file["tmp_name"]);
             break;
 
         }
+   
+
         $dist = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.
         "res".DIRECTORY_SEPARATOR.
         "site".DIRECTORY_SEPARATOR.
         "img".DIRECTORY_SEPARATOR.
         "products".$this->getidproduct().".jpg";
+
+       
 
         imagejpeg($image, $dist);
 
