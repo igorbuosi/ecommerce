@@ -1,1 +1,1 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><li><a href="/categories/9">Motorola</a></li><li><a href="/categories/11">Samsung</a></li><li><a href="/categories/12">testeeeeee</a></li>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><li><a href="/categories/12">Android</a></li><li><a href="/categories/13">Apple</a></li><li><a href="/categories/9">Motorola</a></li><li><a href="/categories/11">Samsung</a></li>
