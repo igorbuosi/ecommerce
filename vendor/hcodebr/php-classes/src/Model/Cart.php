@@ -202,7 +202,7 @@ class Cart extends Model{
             $result = $xml->Servicos->cServico;
 
             if ($result->MsgErro != ''){
-                Cart::setMsgError($result->MsgErro);
+                Cart::setMsgError((string)$result->MsgErro);
 
             }else{
                 Cart::clearMsgError();
@@ -256,9 +256,12 @@ class Cart extends Model{
 
     public function getCalculateTotal(){
         $this->updateFreight();
-        $totals = $this->getProductsTotals();
-        $this->setvlsubtotal($totals['vlprice']);
-        $this->setvltotal($totals['vlprice'] + $this->getvlfreight());
+
+		$totals = $this->getProductsTotals();
+
+		$this->setvlsubtotal($totals['vlprice']);
+		$this->setvltotal($totals['vlprice'] + (float)$this->getvlfreight());
+
     }
     
 
