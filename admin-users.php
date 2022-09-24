@@ -15,7 +15,6 @@ $app->get('/admin/users', function(){
 		$pagination = User::getPage($page);
 	}
 
-	
 
 	$pages = [];
 
