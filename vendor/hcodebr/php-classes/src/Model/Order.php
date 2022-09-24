@@ -148,10 +148,11 @@ class Order extends Model{
             inner join tb_users d on d.iduser = a.iduser
             inner join tb_addresses e  using(idaddress)
             inner join tb_persons f on f.idperson = d.idperson            
-            where f.desperson like :search or b.desstatus like :search
+            where f.desperson like :search or b.desstatus like :search or a.idorder = :id
             order by a.dtregister desc
             limit $start, $itemsPerPage", [
-                ':search'=>'%'.$search.'%'
+                ':search'=>'%'.$search.'%',
+                ':id'=>$search
             ]);
 
         $resultTotal = $sql->select(" select found_rows() as nrtotal");
